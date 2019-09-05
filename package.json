@@ -1,0 +1,16 @@
+{
+  "name": "articlnet",
+  "version": "0.1.0",
+  "description": "Articl.net front and backends",
+  "main": "backend/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gulp": "NODE_ENV='development' gulp",
+    "start": "NODE_ENV='production' node backend/app.js",
+    "postinstall": "npm install --prefix backend"
+  },
+  "author": "Articl.net",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {}
+}
