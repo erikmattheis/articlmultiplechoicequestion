@@ -118,9 +118,13 @@ export default {
         if (result) {
 
           this.nameFirst = result.nameFirst ? result.nameFirst : '';
+
           this.nameLast = result.nameLast ? result.nameLast : '';
+
           this.email = result.email ? result.email : '';
+
           this.institution = result.institution ? result.institution : '';
+
           this.education = result.education ? result.education : '';
 
         }
@@ -150,7 +154,9 @@ export default {
     resetFormErrors() {
 
       this.success = null;
+
       this.result = null;
+
       this.errorMessage = '';
 
     },
@@ -163,6 +169,7 @@ export default {
       if (!this.validateEmail(this.email)) {
 
         this.errorMessage = 'Please enter a valid email.';
+
         passed = false;
 
       }
@@ -196,12 +203,16 @@ export default {
       if (result.data) {
 
         this.success = true;
+
         this.result = result.data;
+
         this.$store.dispatch('modals/setSuccessTitle', 'User Updated');
+
         this.$store.dispatch(
           'modals/setSuccessMessage',
           'Your account information was successfully updated.',
         );
+
         this.buttonDisabled = false;
 
       }

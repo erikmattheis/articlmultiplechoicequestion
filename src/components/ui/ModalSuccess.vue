@@ -3,6 +3,7 @@
     v-if="successTitle"
     class="modal-container"
     @click.prevent="close()"
+    @keyup.enter="close()"
   >
     <dialog
       open

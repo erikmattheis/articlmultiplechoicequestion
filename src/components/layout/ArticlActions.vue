@@ -24,7 +24,8 @@ import { isLoggedIn } from '@/services/tokensService';
 
 export default {
   name: 'ArticlActions',
-  components: {},
+  components: {
+  },
   props: ['id', 'title'],
   data() {
 
@@ -36,7 +37,8 @@ export default {
   computed: {
     isLoggedIn,
   },
-  methods: {},
+  methods: {
+  },
 };
 </script>
 

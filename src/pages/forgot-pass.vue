@@ -2,14 +2,14 @@
   <article>
     <h1>Forgot password</h1>
     <form v-if="!result">
-      <label for="email">Email</label>
-      <input
-        id="email"
-        v-model="email"
-        type="text"
-        name="email"
-        autocomplete="email"
-      >
+      <label for="email">Email
+        <input
+          id="email"
+          v-model="email"
+          type="text"
+          name="email"
+          autocomplete="email"
+        ></label>
       <input
         id="username"
         type="hidden"
@@ -63,6 +63,7 @@ export default {
     resetForm() {
 
       this.emailInvalid = null;
+
       this.result = null;
 
     },
@@ -78,6 +79,7 @@ export default {
       if (this.checkForm() === true) {
 
         this.buttonDisabled = true;
+
         this.$http({
           method: 'POST',
           url: '/auth/forgot-password',
@@ -88,6 +90,7 @@ export default {
           .then((result) => {
 
             this.$store.dispatch('modals/setSuccessTitle', 'Email sent');
+
             this.$store.dispatch('modals/setSuccessMessage', 'Check your email for instructions how to reset your password.');
 
             if (result?.data?.message) {

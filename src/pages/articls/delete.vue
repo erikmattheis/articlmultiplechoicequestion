@@ -16,7 +16,8 @@
 <script>
 export default {
   name: 'DeleteArticl',
-  components: {},
+  components: {
+  },
   data() {
 
     return {
@@ -30,6 +31,7 @@ export default {
     if (this.$route.params?.id) {
 
       this.id = this.$route.params?.id;
+
       this.title = this.$route.params?.title;
 
     }
@@ -41,7 +43,9 @@ export default {
       const result = await this.submitDelete(this.id);
 
       console.log('result', result);
+
       this.$store.dispatch('modals/setSuccessTitle', 'Deletion successful.');
+
       this.$store.dispatch(
         'modals/setSuccessMessage',
         `The articl "${this.title}" has been permanently deleted.`,

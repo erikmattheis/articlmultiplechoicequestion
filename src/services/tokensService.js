@@ -1,14 +1,28 @@
-import { app } from '@/main.js';
+import { getCurrentInstance } from 'vue';
 import store from '@/store';
 
 const getVueInstanceContext = function () {
 
-  return app.config.globalProperties;
+  return getCurrentInstance().config.globalProperties;
+
+};
+const getAccessTokenExpires = function () {
+
+  const accessTokenExpires = getVueInstanceContext().$cookies.get('accessTokenExpires');
+
+  if (accessTokenExpires) {
+
+    store.dispatch('tokens/accessTokenExpires', accessTokenExpires);
+
+  }
+
+  return accessTokenExpires;
 
 };
 const updateSeconds = function () {
 
   console.log('updateSeconds');
+
   this.now = Math.round(Date.now() / 1000);
 
 };
@@ -29,24 +43,14 @@ const isLoggedIn = function () {
   const expires = Number(getAccessTokenExpires());
 
   console.log(expires, 'expires');
+
   console.log(currentTime, 'currentTime');
+
   console.log(`${expires > currentTime}`, 'expires > currentTime');
+
   clearInterval(interval);
 
   return expires > currentTime;
-
-};
-const getAccessTokenExpires = function () {
-
-  const accessTokenExpires = getVueInstanceContext().$cookies.get('accessTokenExpires');
-
-  if (accessTokenExpires) {
-
-    store.dispatch('tokens/accessTokenExpires', accessTokenExpires);
-
-  }
-
-  return accessTokenExpires;
 
 };
 const getAccessTokenValue = function () {
@@ -95,8 +99,11 @@ const setTokensInVuex = function (val) {
   if (val?.access?.token) {
 
     store.dispatch('tokens/accessTokenValue', val.access.token);
+
     store.dispatch('tokens/accessTokenExpires', val.access.expires);
+
     store.dispatch('tokens/refreshTokenValue', val.refresh.token);
+
     store.dispatch('tokens/refreshTokenExpires', val.refresh.expires);
 
   }
@@ -109,8 +116,11 @@ const setTokensInLocalStorage = function (val) {
     const vue = getVueInstanceContext();
 
     vue.$cookies.set('accessTokenValue', val.access.token);
+
     vue.$cookies.set('accessTokenExpires', val.access.expires);
+
     vue.$cookies.set('refreshTokenValue', val.refresh.token);
+
     vue.$cookies.set('refreshTokenExpires', val.refresh.expires);
 
   }
@@ -125,6 +135,7 @@ const convertStringDatesToMS = function (serverResult) {
     result.data.tokens.access.expires = Date.parse(
       result.data.tokens.access.expires,
     );
+
     result.data.tokens.refresh.expires = Date.parse(
       result.data.tokens.refresh.expires,
     );
@@ -133,7 +144,8 @@ const convertStringDatesToMS = function (serverResult) {
 
   }
 
-  return {};
+  return {
+  };
 
 };
 const setTokens = function setTokens(response) {
@@ -141,12 +153,12 @@ const setTokens = function setTokens(response) {
   const result = convertStringDatesToMS(response);
 
   setTokensInLocalStorage(result.data.tokens);
+
   setTokensInVuex(result.data.tokens);
 
 };
 
-export {
-  isLoggedIn,
+export { isLoggedIn,
   getAccessTokenExpires,
   getAccessTokenValue,
   getRefreshTokenExpires,
@@ -154,5 +166,4 @@ export {
   setTokensInVuex,
   setTokensInLocalStorage,
   convertStringDatesToMS,
-  setTokens,
-};
+  setTokens };

@@ -20,18 +20,17 @@
       v-show="activeTab === 0"
       class="active tab-content"
     >
-      <label for="title">Title</label>
-      <input
-        id="title"
-        v-model="title"
-        type="text"
-      >
+      <label for="title">Title
+        <input
+          id="title"
+          v-model="title"
+          type="text"
+        ></label>
     </div>
     <div
       v-show="activeTab === 1"
       class="active tab-content"
     >
-      <label for="journal">Journal</label>
       <input-typeahead
         src="/articls/journal"
         :input-value="journal"
@@ -39,7 +38,6 @@
         @typeahead-updated="onJournalChange"
       />
 
-      <label for="author">Author</label>
       <input-typeahead
         src="/articls/authors"
         :input-value="authors"
@@ -47,76 +45,83 @@
         @typeahead-updated="onAuthorsChange"
       />
 
-      <label>Year published</label>
-      <label
-        v-if="yearsStart === Number(year)"
-        class="horizontal"
-      ><input
-        v-model="yearComparison"
-        type="radio"
-        value="after"
-        name="yearComparison"
-      >
-        After
-      </label>
-      <label
-        v-for="comparison in yearComparisons"
-        v-else
-        :key="comparison"
-        class="horizontal"
-      ><input
-         v-model="yearComparison"
-         type="radio"
-         :value="comparison"
-         name="yearComparison"
-       >
-        {{ comparison }}
-      </label>
-      <select
-        v-model="year"
-        autocomplete="off"
-        @change="onYearChange"
-      >
-        <option
-          v-for="i in years"
-          :key="i"
+      <label for="yearComparison">Year published
+        <label
+          for="year"
+          v-if="yearsStart === Number(year)"
+          class="horizontal"
+        ><input
+          v-model="yearComparison"
+          type="radio"
+          value="after"
+          name="yearComparison"
         >
-          {{ i }}
-        </option>
-      </select>
+          After
+        </label>
+        <label
+          for="yearComparison"
+          v-for="comparison in yearComparisons"
+          v-else
+          :key="comparison"
+          class="horizontal"
+        ><input
+           v-model="yearComparison"
+           type="radio"
+           :value="comparison"
+           name="yearComparison"
+         >
+          {{ comparison }}
+        </label>
+        <select
+          v-model="year"
+          autocomplete="off"
+          @change="onYearChange"
+        >
+          <option
+            v-for="i in years"
+            :key="i"
+          >
+            {{ i }}
+          </option>
+        </select>
 
-      <div class="grid">
-        <div>
-          <fieldset>
-            Type
-            <label
-              v-for="type in allTypes"
-              :key="type"
-            >
-              <input
-                v-model="types"
-                type="checkbox"
-                :value="type"
-                checked="checked"
-              >{{ type }}</label>
-          </fieldset>
+        <div class="grid">
+          <div>
+            <fieldset>
+              Type
+              <label
+                :for="type"
+                v-for="type in allTypes"
+                :key="type"
+              >
+                <input
+                  v-model="types"
+                  type="checkbox"
+                  :value="type"
+                  checked="checked"
+                  :id="type"
+                >{{ type }}</label>
+            </fieldset>
+          </div>
+          <div>
+            <fieldset>
+              Status
+              <label
+                :for="status"
+                v-for="status in allStatuses"
+                :key="status"
+              >
+                <input
+                  v-model="statuses"
+                  type="checkbox"
+                  :value="status"
+                  checked="checked"
+                  :id="status"
+                >{{ status }}</label>
+            </fieldset>
+          </div>
         </div>
-        <div>
-          <fieldset>
-            Status
-            <label
-              v-for="status in allStatuses"
-              :key="status"
-            >
-              <input
-                v-model="statuses"
-                type="checkbox"
-                :value="status"
-                checked="checked"
-              >{{ status }}</label>
-          </fieldset>
-        </div>
-      </div>
+      </label>
     </div>
   </form>
 </template>
@@ -143,6 +148,11 @@ export default {
 
   },
   computed: {
+    queryUC(val) {
+
+      return val[0].toUpperCase() + val.substring(1);
+
+    },
     ...mapGetters({
       years: 'articlsParams/years',
     }),
@@ -265,15 +275,17 @@ export default {
       'articlsParams/statuses',
       this.$store.state.articlsParams.allStatuses,
     );
+
     this.$store.dispatch(
       'articlsParams/types',
       this.$store.state.articlsParams.allTypes,
     );
+
     this.onTitleChange = debounce(this.onTitleChange, 200);
 
   },
   methods: {
-    onTypesChange() {
+    onTypesChange(event) {
 
       this.$store.dispatch('articlsParams/types', event.target.value);
 

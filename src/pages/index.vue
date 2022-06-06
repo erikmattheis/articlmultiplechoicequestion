@@ -27,7 +27,6 @@
 
 <script>
 import { isLoggedIn } from '@/services/tokensService';
-
 import { setTitleAndDescription } from '@/services/htmlMetaService';
 
 export default {
@@ -68,10 +67,12 @@ export default {
         const metaDescription = result?.data?.category[0]?.description;
 
         this.title = documentTitle;
+
         this.$store.dispatch('metas/setMetaDescriptionAndDocumentTitle', {
           documentTitle,
           metaDescription,
         });
+
         this.categories = result.data.categories;
 
       } catch (error) {

@@ -1,8 +1,20 @@
-function highlightedSubstring(string_, subString, part) {
+function noCaseIndexOf(str, subString) {
+
+  if (!str || !subString) {
+
+    return false;
+
+  }
+
+  return str.toLowerCase().indexOf(subString.toLowerCase());
+
+}
+
+function highlightedSubstring(str, subString, part) {
 
   if (!subString && part === 'prefix') {
 
-    return string_;
+    return str;
 
   }
 
@@ -12,9 +24,9 @@ function highlightedSubstring(string_, subString, part) {
 
   }
 
-  const position = noCaseIndexOf(string_, subString);
+  const position = noCaseIndexOf(str, subString);
 
-  if (!string_) {
+  if (!str) {
 
     return false;
 
@@ -22,54 +34,45 @@ function highlightedSubstring(string_, subString, part) {
 
   if (part === 'prefix') {
 
-    return string_.slice(0, Math.max(0, position));
+    return str.slice(0, Math.max(0, position));
 
   }
 
   if (part === 'term') {
 
-    return string_.substring(position, position + subString?.length);
+    return str.substring(position, position + subString.length);
 
   }
 
   if (part === 'suffix') {
 
-    return string_.slice(Math.max(0, position + subString?.length));
+    return str.slice(Math.max(0, position + subString.length));
 
   }
 
+  return str;
+
 }
+/*
+function emphasizeSubstring(str, subString, length_) {
 
-function noCaseIndexOf(string_, subString) {
-
-  if (!string_ || !subString) {
+  if (!str || !subString || !length_) {
 
     return false;
 
   }
 
-  return string_.toLowerCase().indexOf(subString.toLowerCase());
-
-}
-
-function emphasizeSubstring(string_, subString, length_) {
-
-  if (!string_ || !subString || !length_) {
-
-    return false;
-
-  }
-
-  let position = string_.toLowerCase().indexOf(subString.toLowerCase());
+  let position = str.toLowerCase().indexOf(subString.toLowerCase());
   let result = position > length_ / 2
-    ? `...${string_.substring(Math.floor(length_ / 2), length_ - 3)}${Math.ceil(length_ / 2)}`
-    : string_;
+    ? `...${str.substring(Math.floor(length_ / 2), length_ - 3)}${Math.ceil(length_ / 2)}`
+    : str;
 
   position = result.toLowerCase().indexOf(subString.toLowerCase());
 
   if (position < length_) result = `${result.substring(result.length - Math.ceil(length_ / 2), length_ - 3)}...`;
 
 }
+*/
 
 function toListWithOptionalConjuction(array, conj = '') {
 
@@ -85,6 +88,6 @@ function toListWithOptionalConjuction(array, conj = '') {
 
 }
 
-export {
-  highlightedSubstring, noCaseIndexOf, emphasizeSubstring, toListWithOptionalConjuction,
-};
+export { highlightedSubstring,
+  noCaseIndexOf,
+  toListWithOptionalConjuction };

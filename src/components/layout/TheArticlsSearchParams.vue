@@ -6,11 +6,12 @@
         <a
           href
           @click.prevent="resetValue('text')"
+          @keyup.enter="resetValue('text')"
         >
           <vue-feather
             size="1.2rem"
             type="x-square"
-          />
+          /><span class="sr">Reset search value to empty</span>
         </a>
       </li>
       <li v-if="params.title">
@@ -18,43 +19,45 @@
         <a
           href
           @click.prevent="resetValue('title')"
+          @keyup.enter="resetValue('title')"
         >
           <vue-feather
             size="1.2rem"
             type="x-square"
-          />
+          /><span class="sr">Reset title value to empty</span>
         </a>
       </li>
 
       <li v-if="params.journal">
         Journal is <strong>{{ params.journal }}</strong>
-        <a @click.prevent="resetValue('journal')">
+        <a href @click.prevent="resetValue('journal')" @keyup.enter="resetValue('journal')">
           <vue-feather
             size="1.2rem"
             type="x-square"
-          />
+          /><span class="sr">Reset journal value to empty</span>
         </a>
       </li>
 
       <li v-if="params.authors">
         Authors contains <strong>{{ params.authors }}</strong>
-        <a @click.prevent="resetValue('authors')">
+        <a href @click.prevent="resetValue('authors')" @keyup.enter="resetValue('authors')">
           <vue-feather
             size="1.2rem"
             type="x-square"
-          />
+          /><span class="sr">Reset authors value to empty</span>
         </a>
       </li>
 
       <li v-if="params.year && Number(params.year) !== yearsStart">
         Year is
         <strong>{{ params.yearComparison }} {{ params.year }}</strong>
-        <a @click.prevent="resetValue('year')">
+        <a
+          href @click.prevent="resetValue('year')" @keyup.enter="resetValue('year')">
           <vue-feather
             size="1.2rem"
             type="x-square"
-          />
-        </a>
+          ><span class="sr">Reset year value to {{ yearsStart }}</span>
+          </vue-feather></a>
       </li>
 
       <li
@@ -63,11 +66,11 @@
         ">
         Type is <span v-if="params?.types?.length > 1">one of </span>
         <strong>{{ toListWithOptionalConjuction(params.types, "or") }}</strong>
-        <a @click.prevent="resetValue('types')">
+        <a href @click.prevent="resetValue('types')" @keyup.enter="resetValue('types')">
           <vue-feather
             size="1.2rem"
             type="x-square"
-          />
+          /><span class="sr">Reset type value to all types</span>
         </a>
       </li>
 
@@ -80,12 +83,14 @@
         <strong>{{
           toListWithOptionalConjuction(params.statuses, "or")
         }}</strong>
-        <a @click.prevent="resetValue('statuses')">
+        <a
+          href
+          @click.prevent="resetValue('statuses')" @keyup.enter="resetValue('statuses')">
           <vue-feather
             size="1.2rem"
             type="x-square"
-          />
-        </a>
+          ><span class="sr">Reset statuses value to all statuses</span>
+          </vue-feather></a>
       </li>
     </ul>
   </small>
@@ -103,7 +108,8 @@ export default {
   },
   data() {
 
-    return {};
+    return {
+    };
 
   },
   computed: {
@@ -177,6 +183,9 @@ export default {
           break;
 
         }
+
+        default:
+          throw new Error('Unknown search parameter passed.');
 
       }
 

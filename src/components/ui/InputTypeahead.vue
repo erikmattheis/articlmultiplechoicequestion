@@ -38,7 +38,6 @@
 </template>
 <script>
 import VueFeather from 'vue-feather';
-
 import { debounce } from 'lodash';
 
 export default {
@@ -99,10 +98,15 @@ export default {
       },
       true,
     );
+
     this.setActive = debounce(this.setActive, 10);
+
     this.up = debounce(this.up, 200);
+
     this.update = debounce(this.update, 200);
+
     this.down = debounce(this.down, 200);
+
     this.stringValue = this.inputValue;
 
   },
@@ -118,16 +122,19 @@ export default {
           value: '',
         });
 
-        return this.removeItems();
+        this.removeItems();
 
       }
 
       this.loading = true;
+
       this.hit();
+
       this.$emit('typeaheadUpdated', {
         field: this.query,
         value: this.stringValue,
       });
+
       this.fetchData().then((response) => {
 
         const {
@@ -135,8 +142,11 @@ export default {
         } = response;
 
         this.items = data.slice(0, 7);
+
         this.current = -1;
+
         this.loading = false;
+
         this.hit();
 
       });
@@ -148,12 +158,11 @@ export default {
       const params = {
         q: this.stringValue,
       };
-      const cancel = new Promise((resolve) => (this.cancel = resolve));
-      const request = this.$http.get(this.src, {
+      const result = await this.$http.get(this.src, {
         params,
       });
 
-      return Promise.race([cancel, request]);
+      return result;
 
     },
 
@@ -164,6 +173,7 @@ export default {
     removeItems() {
 
       this.items = [];
+
       this.loading = false;
 
     },
@@ -196,7 +206,7 @@ export default {
 
       if (this.current > 0) {
 
-        this.current--;
+        this.current -= 1;
 
       } else if (this.current === -1) {
 
@@ -214,7 +224,7 @@ export default {
 
       if (this.current < this.items.length - 1) {
 
-        this.current++;
+        this.current += 1;
 
       } else {
 
@@ -227,6 +237,7 @@ export default {
     onHit(val) {
 
       this.stringValue = val;
+
       this.$emit('typeaheadUpdated', {
         field: this.query, value: val,
       });

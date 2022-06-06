@@ -110,8 +110,11 @@ export default {
       const results = await this.fetchData(this.$route.params.slug);
 
       this.categories = results.categories;
+
       this.articlTypes = results.articlTypes;
+
       this.articls = results.articls;
+
       this.title = results?.category[0]?.title;
 
       const description = results?.category[0]?.description;
@@ -119,15 +122,19 @@ export default {
       this.setTitleAndDescription({
         title: this.title, description,
       });
+
       this.isLoading = false;
+
       console.log(
         'categories',
         this.categories?.length,
       );
+
       console.log(
         'articlTypes',
         this.articlTypes?.length,
       );
+
       console.log(
         'articls',
         this.articls?.length,
@@ -156,7 +163,9 @@ export default {
 
       this.categories.forEach((obj, index) => {
 
-        obj.order = index;
+        const objRef = obj;
+
+        objRef.order = index;
 
       });
 
@@ -184,19 +193,16 @@ export default {
         },
       });
 
-      if (result?.data) {
-
-        return result.data;
-
-      }
-
       this.isLoading = false;
+
+      return result.data;
 
     },
 
     onUpdateOrderValues() {
 
       this.updateOrderValues();
+
       this.saveOrderValues();
 
     },
@@ -204,6 +210,7 @@ export default {
   },
 };
 </script>
+
 <style lang="css" scoped>
 pre {
   overflow: auto;

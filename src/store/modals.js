@@ -46,6 +46,7 @@ export default {
     clearSuccess(context) {
 
       context.commit('SET_SUCCESS_TITLE', '');
+
       context.commit('SET_SUCCESS_MESSAGE', '');
 
     },
@@ -57,6 +58,7 @@ export default {
     clearError(context) {
 
       context.commit('SET_ERROR_TITLE', '');
+
       context.commit('SET_ERROR_MESSAGE', '');
 
     },

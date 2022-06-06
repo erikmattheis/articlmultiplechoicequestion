@@ -149,7 +149,9 @@ export default {
     resetFormErrors() {
 
       this.success = null;
+
       this.result = null;
+
       this.errorMessage = '';
 
     },
@@ -162,21 +164,25 @@ export default {
       if (!this.validateEmail(this.email)) {
 
         this.errorMessage = 'Please enter a valid email.';
+
         passed = false;
 
       } else if (this.scoreChars(this.password) < 3) {
 
         this.errorMessage = 'Please choose a more complex password.';
+
         passed = false;
 
       } else if (this.password && this.password.length < 8) {
 
         this.errorMessage = 'Please choose a longer password.';
+
         passed = false;
 
       } else if (this.password !== this.password2) {
 
         this.errorMessage = 'The password fields must match.';
+
         passed = false;
 
       }
@@ -205,6 +211,7 @@ export default {
         if (result.data) {
 
           this.success = true;
+
           this.result = result.data;
 
         }

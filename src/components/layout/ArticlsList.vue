@@ -60,7 +60,9 @@ export default {
 
       this.articls.forEach((obj, index) => {
 
-        obj.order = index;
+        const objValue = obj;
+
+        objValue.order = index;
 
       });
 
@@ -78,14 +80,17 @@ export default {
     onUpdateOrderValues() {
 
       this.updateOrderValues();
+
       this.saveOrderValues();
 
     },
     async updateValues(params) {
 
-      if (isEqual(params, {})) {
+      if (isEqual(params, {
+      })) {
 
         this.articls = [];
+
         this.totalResults = '--';
 
         return;
@@ -99,16 +104,18 @@ export default {
         if (Number(result.page) === 1 || result?.results?.length === 0) {
 
           this.articls = [];
+
           this.totalResults = '--';
 
         }
 
         this.articls = this.articls.concat(result.results);
-        this.totalPages = result.totalPages;
-        this.limit = result.limit;
-        this.totalResults = result.totalResults;
 
-      } else {
+        this.totalPages = result.totalPages;
+
+        this.limit = result.limit;
+
+        this.totalResults = result.totalResults;
 
       }
 
@@ -125,13 +132,9 @@ export default {
         },
       });
 
-      if (result?.data) {
-
-        return result.data;
-
-      }
-
       this.isLoading = false;
+
+      return result.data;
 
     },
     async getArticls(params) {
@@ -144,13 +147,9 @@ export default {
         params,
       });
 
-      if (result?.data) {
-
-        return result.data;
-
-      }
-
       this.isLoading = false;
+
+      return result.data;
 
     },
     getComponentData() {

@@ -65,11 +65,8 @@
 
 <script>
 import { isLoggedIn, setTokens } from '@/services/tokensService';
-
 import { setTitleAndDescription } from '@/services/htmlMetaService';
-
 import theButtonToggleHidden from '@/components/ui/TheButtonToggleHidden.vue';
-
 import validateEmail from '@/services/emailValidationService';
 
 export default {
@@ -112,11 +109,13 @@ export default {
       if (!validateEmail.validateEmail(this.email)) {
 
         this.errorMessage = 'Please enter a valid email.';
+
         passed = false;
 
       } else if (this.password && this.password.length < 8) {
 
         this.errorMessage = 'Passwords are at least eight characters.';
+
         passed = false;
 
       }
@@ -152,6 +151,7 @@ export default {
         }
 
         this.resetFormErrors();
+
         setTokens(result);
 
         const theme = result?.data?.user?.theme !== 'dark' ? 'light' : 'dark';
@@ -160,6 +160,7 @@ export default {
           'data-theme',
           theme,
         );
+
         document.documentElement.setAttribute(
           'data-theme',
           theme,

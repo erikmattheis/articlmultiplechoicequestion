@@ -51,9 +51,13 @@ function copyToClipboard(index) {
 
   // adding p tag text to textarea
   input.value = copyText;
+
   document.body.append(input);
+
   input.select();
+
   document.execCommand('Copy');
+
   // removing textarea after copy
   input.remove();
 
@@ -62,15 +66,17 @@ function copyToClipboard(index) {
 // Parse the ID from the URL
 function getId(url) {
 
+  let id;
+
   if (url.charAt(url.length - 1) === '/') {
 
-    url = url.slice(0, Math.max(0, url.length - 1));
+    id = url.slice(0, Math.max(0, url.length - 1));
 
   }
 
-  url = url.slice(Math.max(0, url.lastIndexOf('/') + 1));
+  id = url.slice(Math.max(0, url.lastIndexOf('/') + 1));
 
-  return url;
+  return id;
 
 }
 
@@ -115,12 +121,12 @@ function getDB(url) {
 // Handle the Async fetch of Pubmed Data
 function api(surl) {
 
-  const base_url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/';
+  const baseUrl = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/';
   const mode = 'efetch';
   const database = getDB(surl);
   const id = getId(surl);
   const type = 'xml';
-  const request = new Request(`${base_url}${mode}.fcgi?db=${database}&id=${id}&rettype=abstract&retmode=${type}`);
+  const request = new Request(`${baseUrl}${mode}.fcgi?db=${database}&id=${id}&rettype=abstract&retmode=${type}`);
 
   return fetch(request).then(// results returns XML. lets cast this to a string, then create
     // a new DOM object out of it!
@@ -153,7 +159,9 @@ function api(surl) {
               if (element.querySelector('surname').textContent !== 'undefined') {
 
                 result.authors += element.querySelector('surname') ? `${element.querySelector('surname').textContent} ` : '';
+
                 result.authors += element.querySelector('given-names') ? `${element.querySelector('given-names').textContent} ` : '';
+
                 result.authors += element.querySelector('degrees') ? `${element.querySelector('degrees').textContent}<br><br>` : '';
 
               }
@@ -242,6 +250,7 @@ function api(surl) {
             authors.forEach((element) => {
 
               result.authors += element.querySelector('LastName') ? `${element.querySelector('LastName').textContent} ` : '';
+
               result.authors += element.querySelector('ForeName') ? `${element.querySelector('ForeName').textContent},` : '<br><br>';
 
             });
@@ -304,6 +313,9 @@ function api(surl) {
 
           break;
 
+        default:
+          throw new Error('Unknown function called in scraper');
+
       }
 
       return result;
@@ -322,7 +334,8 @@ function scrape(surl) {
 
     const parser = new DOMParser();
     const responseDocument = parser.parseFromString(html, 'text/html');
-    const result = {};
+    const result = {
+    };
 
     switch (database) {
 
@@ -330,6 +343,7 @@ function scrape(surl) {
         try {
 
           result.title = responseDocument.querySelectorAll('h1[class="content-title"]')[0].textContent;
+
           result.authors = responseDocument.querySelectorAll('[class="contrib-group fm-author"]') ? responseDocument.querySelectorAll('[class="contrib-group fm-author"]')[0].textContent : '';
 
           const temporary = responseDocument.querySelectorAll('[class="fm-affl"]');
@@ -339,8 +353,11 @@ function scrape(surl) {
             result.affiliation += `${element.textContent}<br><br>`;
 
           });
+
           result.journal = responseDocument.querySelectorAll('li[class="archive"]')[0].textContent;
+
           result.year = responseDocument.querySelectorAll('li[class="issue-page"]')[0].textContent;
+
           result.abstract = responseDocument.querySelectorAll('[class="tsec sec"]')[0].textContent;
 
         } catch (error) {
@@ -355,8 +372,11 @@ function scrape(surl) {
         try {
 
           result.title = responseDocument.querySelectorAll('[class="heading-title"]')[0].textContent;
+
           result.authors = responseDocument.querySelectorAll('[class="authors-list"]') ? responseDocument.querySelectorAll('[class="authors-list"]')[0].textContent : '';
+
           result.affiliation = responseDocument.querySelectorAll('[class="affiliations"] ul')[0].textContent;
+
           result.journal = responseDocument.querySelectorAll('#full-view-journal-trigger')[0].textContent;
 
           const yearTry = responseDocument.querySelectorAll('span[class="cit"]')[0].textContent;
@@ -366,6 +386,7 @@ function scrape(surl) {
           const monthTry = responseDocument.querySelectorAll('span[class="cit"]')[0].textContent;
 
           [, result.month] = monthTry.split(' ');
+
           result.abstract = responseDocument.querySelectorAll('#enc-abstract')[0].textContent;
 
         } catch (error) {
@@ -375,6 +396,9 @@ function scrape(surl) {
         }
 
         break;
+
+      default:
+        throw new Error('Unknown condition passed to scraper.');
 
     }
 
@@ -386,41 +410,46 @@ function scrape(surl) {
 
 }
 
-function generateJSON(result) {
-
-  const json_title = result.title;
-  const json_affiliation = result.affiliation;
-  const json_authors = result.authors;
-  const json_year = result.year;
-  const json_month = result.month;
-  const json_abstract = result.abstract;
-  const json_journal = result.journal;
-  const object = {
-    title: json_title.replace('"', "'"),
-    authors: json_authors.replace('"', "'"),
-    affiliation: json_affiliation.replace('"', "'"),
-    journal: json_journal.replace('"', "'"),
-    publication_year: json_year.replace('"', "'"),
-    publication_month: json_month.replace('"', "'"),
-    abstract: json_abstract.replace('"', "'"),
-  };
-  const json_output = JSON.stringify(object, null, 2); // TypeError: Converting circular structure to JSON
-
-  // Start file download.
-  download(`article_${Date.now()}.json`, json_output);
-
-}
-
 function download(filename, text) {
 
   const element = document.createElement('a');
 
   element.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(text)}`);
+
   element.setAttribute('download', filename);
+
   element.style.display = 'none';
+
   document.body.append(element);
+
   element.click();
+
   element.remove();
+
+}
+
+function generateJSON(result) {
+
+  const jsonTitle = result.title;
+  const jsonAffiliation = result.affiliation;
+  const jsonAuthors = result.authors;
+  const jsonYear = result.year;
+  const jsonMonth = result.month;
+  const jsonAbstract = result.abstract;
+  const jsonJournal = result.journal;
+  const object = {
+    title: jsonTitle.replace('"', "'"),
+    authors: jsonAuthors.replace('"', "'"),
+    affiliation: jsonAffiliation.replace('"', "'"),
+    journal: jsonJournal.replace('"', "'"),
+    publication_year: jsonYear.replace('"', "'"),
+    publication_month: jsonMonth.replace('"', "'"),
+    abstract: jsonAbstract.replace('"', "'"),
+  };
+  const jsonOutput = JSON.stringify(object, null, 2); // TypeError: Converting circular structure to JSON
+
+  // Start file download.
+  download(`article_${Date.now()}.json`, jsonOutput);
 
 }
 
@@ -488,11 +517,9 @@ const scraper = (url) => {
 
 async function fetchData(url) {
 
-  return await scraper(url);
+  return scraper(url);
 
 }
 
-export {
-  copyToClipboard, generateJSON, fetchData,
-};
+export { copyToClipboard, generateJSON, fetchData };
 

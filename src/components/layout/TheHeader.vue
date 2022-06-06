@@ -46,15 +46,17 @@
 
               <ul role="listbox">
                 <li>
-                  <input
-                    id="theme"
-                    type="checkbox"
-                    name="theme"
-                    role="switch"
-                    :checked="theme === 'dark'"
-                    @click="toggleTheme()"
-                  >
-                  {{ theme }}
+                  <label for="theme">
+                    <input
+                      id="theme"
+                      type="checkbox"
+                      name="theme"
+                      role="switch"
+                      :checked="theme === 'dark'"
+                      :aria-checked="theme === 'dark'"
+                      @click="toggleTheme()"
+                    >
+                    {{ theme }}</label>
                 </li>
 
                 <li>
@@ -64,12 +66,14 @@
                         class="less-margin"
                         href
                         @click.prevent="setTextSize(0.8)"
+                        @keyup.enter="setTextSize(0.8)"
                       >
                         <vue-feather
                           size="0.6rem"
                           type="type"
                           aria-label="Small text"
-                        />
+                          alt="Small text"
+                        /><span class="sr">Small text</span>
                       </a>
                     </div>
 
@@ -78,12 +82,13 @@
                         class="less-margin"
                         href
                         @click.prevent="setTextSize(1)"
+                        @keyup.enter="setTextSize(1)"
                       >
                         <vue-feather
                           size="0.8rem"
                           type="type"
                           aria-label="Normal text"
-                        />
+                        /><span class="sr">Normal text</span>
                       </a>
                     </div>
 
@@ -92,12 +97,13 @@
                         class="less-margin"
                         href
                         @click.prevent="setTextSize(1.2)"
+                        @keyup.enter="setTextSize(1.2)"
                       >
                         <vue-feather
                           size="1rem"
                           type="type"
                           aria-label="Large text"
-                        />
+                        /><span class="sr">Large text</span>
                       </a>
                     </div>
                   </div>
@@ -153,14 +159,14 @@ export default {
     const theme = this.$cookies.get('data-theme');
 
     this.theme = theme !== 'dark' ? 'light' : 'dark';
+
     document.documentElement.setAttribute('data-theme', this.theme);
 
     if (this.$cookies.isKey('--font-size')) {
 
       this.setTextSize(this.$cookies.get('--font-size'));
-      this.originalFontSize = parseInt(
-        getComputedStyle(document.body).getPropertyValue('--font-size'),
-      );
+
+      this.originalFontSize = parseInt(getComputedStyle(document.body).getPropertyValue('--font-size'), 10);
 
     }
 
@@ -173,6 +179,7 @@ export default {
         '--font-size',
         `${18 * size}px`,
       );
+
       this.$cookies.set('--font-size', size);
 
     },
@@ -180,6 +187,7 @@ export default {
     clearLocalData() {
 
       this.$cookies.keys().forEach((cookie) => this.$cookies.remove(cookie));
+
       clearLocalStorage();
 
     },
@@ -196,13 +204,17 @@ export default {
             refreshToken,
           },
         });
+
         localStorage.clear();
+
         this.$store.dispatch('tokens/logout');
+
         this.$router.push('/');
 
       } else {
 
         localStorage.clear();
+
         this.$store.dispatch('tokens/logout');
 
       }
@@ -211,7 +223,9 @@ export default {
     toggleTheme() {
 
       this.theme = this.theme === 'light' ? 'dark' : 'light';
+
       document.documentElement.setAttribute('data-theme', this.theme);
+
       this.$cookies.set('data-theme', this.theme);
 
     },

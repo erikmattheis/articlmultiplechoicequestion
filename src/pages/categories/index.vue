@@ -9,36 +9,36 @@
 
     <template v-if="isLoggedIn">
       <form v-if="!success">
-        <label for="title">Title</label>
-        <input
-          id="title"
-          v-model="title"
-          type="text"
-          name="title"
-        >
-        <label for="slug">Slug</label>
-        <input
-          id="slug"
-          v-model="slug"
-          readonly
-          type="text"
-          name="slug"
-        >
-        <label for="title">Parent slug</label>
-        <input
-          id="parentSlug"
-          v-model="parentSlug"
-          type="text"
-          name="parentSlug"
-        >
+        <label for="title">Title
+          <input
+            id="title"
+            v-model="title"
+            type="text"
+            name="title"
+          ></label>
+        <label for="slug">Slug
+          <input
+            id="slug"
+            v-model="slug"
+            readonly
+            type="text"
+            name="slug"
+          ></label>
+        <label for="parentSlug">Parent slug
+          <input
+            id="parentSlug"
+            v-model="parentSlug"
+            type="text"
+            name="parentSlug"
+          ></label>
 
-        <label for="description">Description</label>
-        <textarea
-          id="description"
-          name="description"
-          rows="10"
-          cols="70"
-        />
+        <label for="description">Description
+          <textarea
+            id="description"
+            name="description"
+            rows="10"
+            cols="70"
+          /></label>
         <button
           id="Login"
           type="submit"
@@ -53,6 +53,7 @@
         <a
           href
           @click="$router.go()"
+          @keyup.enter="$router.go()"
         >Create another category</a>
       </template>
     </template>
@@ -64,7 +65,6 @@
 
 <script>
 import CardNotification from '@/components/ui/CardNotification.vue';
-
 import { isLoggedIn } from '@/services/tokensService';
 
 export default {
@@ -121,7 +121,9 @@ export default {
     resetFormErrors() {
 
       this.success = null;
+
       this.result = null;
+
       this.errorMessage = '';
 
     },
@@ -134,19 +136,25 @@ export default {
       if (!this.title) {
 
         this.titleInvalid = true;
+
         this.errorMessage = 'Please enter a title.';
+
         passed = false;
 
       } else if (!this.slug) {
 
         this.slugInvalid = true;
+
         this.errorMessage = 'Please enter a slug.';
+
         passed = false;
 
       } else if (!this.parentSlug) {
 
         this.parentIdInvalid = true;
+
         this.errorMessage = 'Please eselect a parent category.';
+
         passed = false;
 
       }
@@ -161,6 +169,7 @@ export default {
       if (this.checkForm() === true) {
 
         this.buttonDisabled = true;
+
         this.$http({
           method: 'POST',
           url: '/categories',
@@ -176,6 +185,7 @@ export default {
             if (result.data) {
 
               this.success = true;
+
               this.result = result.data;
 
             }

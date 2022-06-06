@@ -9,13 +9,13 @@
     <template v-if="isLoggedIn">
       <form v-if="!success">
         <template v-if="!id">
-          <label for="articlUrl">URL</label>
-          <input
-            id="articlUrl"
-            v-model="articlUrl"
-            type="text"
-            name="articlUrl"
-          >
+          <label for="articlUrl">URL
+            <input
+              id="articlUrl"
+              v-model="articlUrl"
+              type="text"
+              name="articlUrl"
+            ></label>
 
           <button
             type="button"
@@ -25,124 +25,123 @@
             FETCH DATA
           </button>
         </template>
-        <label for="">Title</label>
-        <input
-          id=""
-          v-model="title"
-          name=""
-          autocomplete="off"
-        >
+        <label for="title">Title
+          <input
+            id="title"
+            v-model="title"
+            name="title"
+            autocomplete="off"
+          ></label>
 
-        <label for="authors">Authors</label>
-        <input
-          id="authors"
-          v-model="authors"
-          name="authors"
-          autocomplete="off"
-        >
+        <label for="authors">Authors
+          <input
+            id="authors"
+            v-model="authors"
+            name="authors"
+            autocomplete="off"
+          ></label>
 
-        <label for="affiliation">Affiliation</label>
-        <input
-          id="affiliation"
-          v-model="affiliation"
-          name="affiliation"
-          autocomplete="off"
-        >
+        <label for="affiliation">Affiliation
+          <input
+            id="affiliation"
+            v-model="affiliation"
+            name="affiliation"
+            autocomplete="off"
+          ></label>
 
-        <label for="journal">Journal</label>
-        <input
-          id="journal"
-          v-model="journal"
-          name="journal"
-          autocomplete="off"
-        >
+        <label for="journal">Journal
+          <input
+            id="journal"
+            v-model="journal"
+            name="journal"
+            autocomplete="off"
+          ></label>
 
-        <label for="">Publication Year</label>
-        <input
-          id="year"
-          v-model="year"
-          name="year"
-          autocomplete="off"
-        >
+        <label for="year">Publication Year
+          <input
+            id="year"
+            v-model="year"
+            name="year"
+            autocomplete="off"
+          ></label>
 
-        <label for="">Publication Month</label>
-        <input
-          id="month"
-          v-model="month"
-          name="month"
-          autocomplete="off"
-        >
+        <label for="month">Publication Month
+          <input
+            id="month"
+            v-model="month"
+            name="month"
+            autocomplete="off"
+          ></label>
 
-        <label for="">Abstract</label>
-        <input
-          id="abstract"
-          v-model="abstract"
-          name="abstract"
-          autocomplete="off"
-        >
+        <label for="abstract">Abstract
+          <input
+            id="abstract"
+            v-model="abstract"
+            name="abstract"
+            autocomplete="off"
+          ></label>
 
-        <label for="type">Link type</label>
-        <select
-          id="type"
-          v-model="type"
-          name="type"
-          autocomplete="off"
-        >
-          <optgroup value="Resources">
-            <option value="Review (OA)">
-              Review (OA)
-            </option>
-            <option value="Review (OA)">
-              Review (PA)
-            </option>
-            <option value="Research (OA)">
-              Research (OA)
-            </option>
-            <option value="Research (PA)">
-              Research (PA)
-            </option>
-            <option value="Web">
-              Web
-            </option>
-            <option value="on-medical journal articles">
-              Non-medical journal articles
-            </option>
-            <option value="Images">
-              Images
-            </option>
-            <option value="Presentations">
-              Presentations
-            </option>
-            <option value="Videos">
-              Videos
-            </option>
-            <option value="Podcast">
-              Podcast
-            </option>
-          </optgroup>
-        </select>
+        <label for="type">Link type
+          <select
+            id="type"
+            v-model="type"
+            name="type"
+            autocomplete="off"
+          >
+            <optgroup value="Resources">
+              <option value="Review (OA)">
+                Review (OA)
+              </option>
+              <option value="Review (OA)">
+                Review (PA)
+              </option>
+              <option value="Research (OA)">
+                Research (OA)
+              </option>
+              <option value="Research (PA)">
+                Research (PA)
+              </option>
+              <option value="Web">
+                Web
+              </option>
+              <option value="on-medical journal articles">
+                Non-medical journal articles
+              </option>
+              <option value="Images">
+                Images
+              </option>
+              <option value="Presentations">
+                Presentations
+              </option>
+              <option value="Videos">
+                Videos
+              </option>
+              <option value="Podcast">
+                Podcast
+              </option>
+            </optgroup>
+          </select></label>
 
-        <label for="status">Status</label>
-        <select
-          id="status"
-          v-model="status"
-          name="status"
-        >
-          <option value="Published">
-            Published
-          </option>
-          <option value="Draft">
-            Draft
-          </option>
-          <option value="Pending">
-            Pending
-          </option>
-          <option value="Trash">
-            Trash
-          </option>
-        </select>
+        <label for="status">Status
+          <select
+            id="status"
+            v-model="status"
+            name="status"
+          >
+            <option value="Published">
+              Published
+            </option>
+            <option value="Draft">
+              Draft
+            </option>
+            <option value="Pending">
+              Pending
+            </option>
+            <option value="Trash">
+              Trash
+            </option>
+          </select></label>
 
-        <label for="typeaheadQuery">Category slug</label>
         <input-typeahead
           src="/categories/titles"
           query="category"
@@ -163,6 +162,7 @@
         <a
           href
           @click="$router.go()"
+          @keyup.enter="$router.go()"
         >Create another article</a>
       </template>
     </template>
@@ -218,6 +218,7 @@ export default {
     if (!this.id) {
 
       this.categorySlug = this.$route.query.slug;
+
       this.onTypeaheadHit({
         value: this.categorySlug,
       });
@@ -237,6 +238,7 @@ export default {
         const result = await this.getArticl(this.id);
 
         console.log('result', result);
+
         Object.assign(this, result);
 
       }
@@ -289,7 +291,9 @@ export default {
     resetFormErrors() {
 
       this.success = null;
+
       this.result = null;
+
       this.errorMessage = '';
 
     },
@@ -302,21 +306,25 @@ export default {
       if (!this.title === '') {
 
         this.errorMessage = 'Please enter a title.';
+
         passed = false;
 
       } else if (this.authors === '') {
 
         this.errorMessage = 'Please enter author names.';
+
         passed = false;
 
       } else if (this.type === '') {
 
         this.errorMessage = 'Please enter a type.';
+
         passed = false;
 
       } else if (this.status === '') {
 
         this.errorMessage = 'Please choose a status.';
+
         passed = false;
 
       }
@@ -356,6 +364,7 @@ export default {
             if (result.data) {
 
               this.success = true;
+
               this.result = result.data;
 
             }

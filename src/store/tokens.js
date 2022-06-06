@@ -42,8 +42,11 @@ export default {
     logout(context) {
 
       context.commit('SET_ACCESS_TOKEN_EXPIRES', '');
+
       context.commit('SET_ACCESS_TOKEN_VALUE', '');
+
       context.commit('SET_REFRESH_TOKEN_EXPIRES', '');
+
       context.commit('SET_REFRESH_TOKEN_VALUE', '');
 
     },

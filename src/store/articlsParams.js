@@ -19,7 +19,8 @@ export default {
       authors: '',
       yearComparisons: ['after', 'before', 'exactly'],
       journal: '',
-      paramsCurrent: {},
+      paramsCurrent: {
+      },
       statuses: [],
       title: '',
       types: [],
@@ -126,12 +127,19 @@ export default {
     }, _ = undefined) {
 
       commit('SET_TEXT', _);
+
       commit('SET_AUTHORS', _);
+
       commit('SET_JOURNAL', _);
+
       commit('SET_STATUSES', []);
+
       commit('SET_TITLE', _);
+
       commit('SET_TYPES', []);
+
       commit('SET_YEAR_COMPARISON', _);
+
       commit('SET_YEAR', _);
 
     },

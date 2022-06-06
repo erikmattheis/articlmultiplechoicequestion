@@ -87,11 +87,13 @@ export default {
       if (payload?.response?.data?.stack) {
 
         errorStack = payload.response.data.stack;
+
         errorStack = `${errorStack.slice(0, 100)} ${errorStack.slice(100)}`;
 
       } else if (payload?.stack) {
 
         errorStack = payload.stack;
+
         errorStack = `${errorStack.slice(0, 100)} ${errorStack.slice(100)}`;
 
       }
@@ -121,9 +123,13 @@ export default {
       }
 
       context.commit('SET_ERROR_TITLE', errorTitle);
+
       context.commit('SET_ERROR_MESSAGE', errorMessage);
+
       context.commit('SET_ERROR_FILE_NAME', errorFileName);
+
       context.commit('SET_ERROR_LINE_NUMBER', errorLineNumber);
+
       context.commit('SET_ERROR_STACK', errorStack);
 
     },
@@ -131,9 +137,13 @@ export default {
     clearError(context) {
 
       context.commit('SET_ERROR_TITLE', '');
+
       context.commit('SET_ERROR_MESSAGE', '');
+
       context.commit('SET_ERROR_FILE_NAME', '');
+
       context.commit('SET_ERROR_LINE_NUMBER', '');
+
       context.commit('SET_ERROR_STACK', '');
 
     },
@@ -143,7 +153,9 @@ export default {
     }) {
 
       context.commit('SET_DOCUMENT_TITLE', documentTitle);
+
       context.commit('SET_META_DESCRIPTION', metaDescription);
+
       document.title = documentTitle;
 
       let meta = document.querySelector('meta[name="description"]');
@@ -151,7 +163,9 @@ export default {
       if (!meta) {
 
         meta = document.createElement('meta');
+
         meta.name = 'description';
+
         document
           .querySelectorAll('head')[0]
           .appendChild(meta)

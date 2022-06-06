@@ -23,6 +23,7 @@ export default {
   mounted() {
 
     this.submitForm();
+
     this.setTitleAndDescription({
       title: 'Forgot Password',
     });
