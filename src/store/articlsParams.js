@@ -243,11 +243,11 @@ export default {
           year: state.year,
         }),
         ...(state.types
-          && state?.types?.length !== state?.allTypes?.length && {
+          && state.types?.length !== state.allTypes?.length && {
           types: state.types,
         }),
-        ...(state?.statuses?.length
-          && state?.statuses?.length !== state?.allStatuses?.length && {
+        ...(state.statuses?.length
+          && state.statuses?.length !== state.allStatuses?.length && {
           statuses: state.statuses,
         }),
         ...(state.page && Number(state.page) !== 1 && {

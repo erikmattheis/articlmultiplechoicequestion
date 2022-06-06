@@ -101,7 +101,7 @@ export default {
 
         const result = await this.getArticls(params);
 
-        if (Number(result.page) === 1 || result?.results?.length === 0) {
+        if (Number(result.page) === 1 || result.results?.length === 0) {
 
           this.articls = [];
 

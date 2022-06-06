@@ -303,7 +303,7 @@ export default {
 
       let passed = true;
 
-      if (!this.title === '') {
+      if (this.title === '') {
 
         this.errorMessage = 'Please enter a title.';
 

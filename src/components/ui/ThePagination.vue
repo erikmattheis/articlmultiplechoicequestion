@@ -142,7 +142,7 @@ export default {
 
       if (this.isInFirstPage) {
 
-        return false;
+        return;
 
       }
 
@@ -153,7 +153,7 @@ export default {
 
       if (this.isInFirstPage) {
 
-        return false;
+        return;
 
       }
 
@@ -169,7 +169,7 @@ export default {
 
       if (this.isInLastPage) {
 
-        return false;
+        return;
 
       }
 
@@ -180,7 +180,7 @@ export default {
 
       if (this.isInLastPage) {
 
-        return false;
+        return;
 
       }
 

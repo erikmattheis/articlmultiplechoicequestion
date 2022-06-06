@@ -113,7 +113,7 @@ export default {
 
         this.buttonDisabled = true;
 
-        const result = await this.getUser('me');
+        const result = await this.getMe();
 
         if (result) {
 
@@ -141,7 +141,7 @@ export default {
 
     },
 
-    async getUser() {
+    async getMe() {
 
       const result = await this.$http({
         method: 'GET',

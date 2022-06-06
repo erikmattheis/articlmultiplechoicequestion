@@ -115,9 +115,9 @@ export default {
 
       this.articls = results.articls;
 
-      this.title = results?.category[0]?.title;
+      this.title = results.category[0]?.title;
 
-      const description = results?.category[0]?.description;
+      const description = results.category[0]?.description;
 
       this.setTitleAndDescription({
         title: this.title, description,

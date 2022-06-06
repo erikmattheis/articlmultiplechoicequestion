@@ -1,3 +1,5 @@
+import store from '@/store';
+
 function copyToClipboard(index) {
 
   let finalSelector = '';
@@ -66,7 +68,7 @@ function copyToClipboard(index) {
 // Parse the ID from the URL
 function getId(url) {
 
-  let id;
+  let id = url;
 
   if (url.charAt(url.length - 1) === '/') {
 
@@ -74,9 +76,7 @@ function getId(url) {
 
   }
 
-  id = url.slice(Math.max(0, url.lastIndexOf('/') + 1));
-
-  return id;
+  return id.slice(Math.max(0, url.lastIndexOf('/') + 1));
 
 }
 
@@ -88,7 +88,7 @@ function getDB(url) {
 
   } catch (error) {
 
-    this.$store.dispatch('errors/setError', error);
+    store.dispatch('errors/setError', error);
 
   }
 
@@ -98,7 +98,7 @@ function getDB(url) {
 
   } catch (error) {
 
-    this.$store.dispatch('errors/setError', error);
+    store.dispatch('errors/setError', error);
 
   }
 

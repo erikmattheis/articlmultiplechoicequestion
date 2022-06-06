@@ -9,7 +9,7 @@ function charCounts(val) {
 
 }
 
-function scoreChars =  (val) {
+function scoreChars(val) {
 
   if (!val) {
 
@@ -25,7 +25,8 @@ function scoreChars =  (val) {
 
   return a + b + c + d;
 
-};
+}
+
 const validateEmail = function (email) {
 
   if (!email) {
