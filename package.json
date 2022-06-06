@@ -1,16 +1,147 @@
 {
-  "name": "articlnet",
-  "version": "0.1.0",
-  "description": "Articl.net front and backends",
-  "main": "backend/app.js",
+  "name": "articl-frontent-dev",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "gulp": "NODE_ENV='development' gulp",
-    "start": "NODE_ENV='production' node backend/app.js",
-    "postinstall": "npm install --prefix backend"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "postinstall.xxx": "npm run build",
+    "start": "node index.js"
   },
-  "author": "Articl.net",
-  "license": "ISC",
-  "devDependencies": {},
-  "dependencies": {}
+  "main": "index.js",
+  "dependencies": {
+    "@picocss/pico": "^1.5.2",
+    "@rushstack/eslint-patch": "^1.1.3",
+    "axios": "^0.27.2",
+    "core-js": "^3.8.3",
+    "express": "^4.18.1",
+    "feather-icons": "^4.29.0",
+    "lodash": "^4.17.21",
+    "sass-rem": "^3.0.0",
+    "serve-static": "^1.15.0",
+    "v3-infinite-loading": "^1.0.6",
+    "vue": "^3.2.13",
+    "vue-cookies": "^1.8.1",
+    "vue-feather": "^2.0.0",
+    "vue-router": "^4.0.15",
+    "vuedraggable": "^4.1.0",
+    "vuex": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.6",
+    "@vue/cli-plugin-babel": "^5.0.4",
+    "@vue/cli-plugin-eslint": "^5.0.4",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "@vue/eslint-config-airbnb": "^6.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-sort-keys-fix": "^1.1.2",
+    "eslint-plugin-vue": "^8.0.3",
+    "eslint-plugin-vuejs-accessibility": "^1.2.0",
+    "sass": "^1.52.2",
+    "sass-loader": "^13.0.0",
+    "typescript": "^4.7.3"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-recommended",
+      "eslint:recommended",
+      "@vue/airbnb"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "overrides": [
+      {
+        "files": [
+          "src/**/*.js",
+          "src/**/*.vue"
+        ]
+      }
+    ],
+    "rules": {
+      "vue/html-closing-bracket-newline": "off",
+      "vue/max-attributes-per-line": "off",
+      "vue/attributes-order": "off",
+      "vue/singleline-html-element-content-newline": "off",
+      "no-debugger": "off",
+      "no-multiple-empty-lines": [
+        "error",
+        {
+            "max": 1,
+            "maxBOF": 0,
+            "maxEOF": 1
+        }
+    ],
+      "object-curly-newline": [
+        "error",
+        {
+          "ObjectExpression": { "multiline": true, "minProperties": 1 },
+          "ObjectPattern": {
+            "multiline": true,
+            "minProperties": 1
+          },
+          "ImportDeclaration": "never",
+          "ExportDeclaration": "always"
+        }
+      ],
+      "padded-blocks": [
+        "error",
+        {
+          "blocks": "always",
+          "classes": "always",
+          "switches": "always"
+        },
+        {
+          "allowSingleLineBlocks": true
+        }
+      ],
+        "padding-line-between-statements": [
+            "error",
+            {
+                "blankLine": "always",
+                "prev": "*",
+                "next": "*"
+            },
+            {
+                "blankLine": "never",
+                "prev": "const",
+                "next": "const"
+            },
+            {
+                "blankLine": "never",
+                "prev": "let",
+                "next": "let"
+            },
+            {
+                "blankLine": "never",
+                "prev": "expression",
+                "next": "expression"
+            },
+            {
+              "blankLine": "never",
+              "prev": "import",
+              "next": "import"
+          }
+        ]
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "not ie 11",
+    "not op_mini all"
+  ],
+  "license": "ISC"
 }
